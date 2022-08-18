@@ -40,20 +40,20 @@ def login_check():
     session['uid'] = user_from_db.id
     return redirect(f'/user/{user_from_db.id}')
 
-@app.route('/user/<int:id>')
-def user_page(id):
-    if 'uid' in session:
-        if session['uid'] == id:
-            data = {
-                "id" : id
-            }
-            return render_template('user_page.html', user = user.User.grab_one(data))
-        else:
-            flash('You are not authorized to view that page.', 'error')
-            return redirect('/')
-    else:
-        flash('You must be logged in to view that page', 'error')
-        return redirect('/')
+# @app.route('/user/<int:id>')
+# def user_page(id):
+#     if 'uid' in session:
+#         if session['uid'] == id:
+#             data = {
+#                 "id" : id
+#             }
+#             return render_template('user_page.html', user = user.User.grab_one(data))
+#         else:
+#             flash('You are not authorized to view that page.', 'error')
+#             return redirect('/')
+#     else:
+#         flash('You must be logged in to view that page', 'error')
+#         return redirect('/')
 
 @app.route('/logout')
 def logout():
