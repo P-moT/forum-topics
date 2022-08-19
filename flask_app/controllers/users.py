@@ -45,7 +45,7 @@ def login_check():
         flash('Incorrect password.', 'login')
         return redirect ('/')
     session['uid'] = user_from_db.id
-    return redirect(f'/user/{user_from_db.id}')
+    return redirect('/dashboard')
 
 # @app.route('/user/<int:id>')
 # def user_page(id):
