@@ -5,6 +5,9 @@ from flask import render_template, request, session, flash, redirect
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
 
+@app.route('/')
+def login():
+    return render_template('login.html')
 
 @app.route('/user/process', methods=['POST'])
 def register_user():
