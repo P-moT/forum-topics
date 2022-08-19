@@ -34,11 +34,11 @@ class User:
         if len(user_list) > 0:
             flash('Email is already registered.', 'register')
             valid = False
-        if len(user['first_name']) < 3:
-            flash("First name must be at least 3 characters.", 'register')
+        if len(user['first_name']) < 1:
+            flash("First name must be at least 1 character.", 'register')
             valid = False 
-        if len(user['last_name']) < 3:
-            flash("Last name must be at least 3 characters.", 'register')
+        if len(user['last_name']) < 1:
+            flash("Last name must be at least 1 character.", 'register')
             valid = False
         if not EMAIL_REGEX.match(user['email']):
             flash('Invalid email address.', 'register')
