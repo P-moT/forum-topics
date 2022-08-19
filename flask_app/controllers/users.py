@@ -9,6 +9,10 @@ bcrypt = Bcrypt(app)
 def login():
     return render_template('login.html')
 
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')
+
 @app.route('/user/process', methods=['POST'])
 def register_user():
     if not request.form['password']:
@@ -24,7 +28,7 @@ def register_user():
         return redirect('/')
     uid = user.User.add_user(data)
     session['uid'] = uid
-    return redirect(f'/user/{uid}')
+    return redirect('/dashboard')
 
 @app.route('/login_check', methods=['POST'])
 def login_check():
