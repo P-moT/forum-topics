@@ -57,7 +57,7 @@ class User:
         return connectToMySQL(db).query_db(query, data)
     
     @classmethod
-    def grab_one(cls, data):
+    def get_by_id(cls, data):
         query = "SELECT * FROM users WHERE id = %(id)s"
         user = connectToMySQL(db).query_db(query, data)
         return cls(user[0])

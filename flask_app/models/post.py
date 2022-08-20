@@ -9,6 +9,8 @@ class Post:
         self.post = data['post']
         self.topic = data['topic']
         self.users_id = data['users_id']
+        self.created_at = data['created_at']
+        self.updated_at = data['updated_at']
     
 
     @classmethod
