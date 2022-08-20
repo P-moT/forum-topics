@@ -31,15 +31,18 @@
         </div>
         <div class="comment-section">
             <h1>Comments:</h1>
-            <p>[placeholder] comment(s)</p>
+            <p>{{count}} comment(s)</p>
             <div class="comment-box">
-                <form action="/add_comment" method="post" id="form">
+                <form action="/add_comment/{{this_post.topic}}/{{this_post.id}}" method="post" id="form">
                     <textarea name="comment" form="form" cols="30" rows="10"></textarea>
                     <input type="submit" value="Post Comment">
                 </form>
             </div>
             <div class="comments">
-                
+                {% for each_comment in comments %}
+                <p>{{each_comment.comment}}</p>
+                <p>{{each_comment.author.first_name}}</p>
+                {% endfor %}
             </div>
         </div>
     </div>
