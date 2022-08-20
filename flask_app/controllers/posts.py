@@ -1,5 +1,5 @@
 from flask_app import app  
-from flask_app.models import post
+from flask_app.models import post, user
 from flask import render_template, request, session, flash, redirect
 
 # @app.route('/<topic_name>')
@@ -27,3 +27,15 @@ def process_post():
     }
     this_post = post.Post.get_post_by_id(data2)
     return redirect(f'/{this_post.topic}/post/{this_post.id}')
+
+@app.route('/<topic_name>/post/<int:id>')
+def show_post(topic_name, id):
+    data = {
+        'id': id
+    }
+    this_post = post.Post.get_post_by_id(data)
+    data2 = {
+        'id': this_post.users_id
+    }
+    post_author = user.User.get_by_id(data2)
+    return render_template('post.html', this_post = this_post, post_author = post_author)
