@@ -22,6 +22,25 @@
                 <h2>Created by: {{post_author.first_name}}</h2>
                 <h3>Topic: {{this_post.topic}}</h3>
             </div>
+            <div class="titlesidebar">
+                <a href="/sports" class="button">Sports Hub</a>
+            </div>
+        </div>
+        <div class="post">
+            <p>{{this_post.post}}</p>
+        </div>
+        <div class="comment-section">
+            <h1>Comments:</h1>
+            <p>[placeholder] comment(s)</p>
+            <div class="comment-box">
+                <form action="/add_comment" method="post" id="form">
+                    <textarea name="comment" form="form" cols="30" rows="10"></textarea>
+                    <input type="submit" value="Post Comment">
+                </form>
+            </div>
+            <div class="comments">
+                
+            </div>
         </div>
     </div>
 </body>
