@@ -26,8 +26,8 @@ def register_user():
     }
     if not user.User.validate_user(request.form, data):
         return redirect('/')
-    uid = user.User.add_user(data)
-    session['uid'] = uid
+    id = user.User.add_user(data)
+    session['id'] = id
     return redirect('/dashboard')
 
 @app.route('/login_check', methods=['POST'])
@@ -44,13 +44,13 @@ def login_check():
     if not bcrypt.check_password_hash(user_from_db.password, request.form['password']):
         flash('Incorrect password.', 'login')
         return redirect ('/')
-    session['uid'] = user_from_db.id
+    session['id'] = user_from_db.id
     return redirect('/dashboard')
 
 # @app.route('/user/<int:id>')
 # def user_page(id):
-#     if 'uid' in session:
-#         if session['uid'] == id:
+#     if 'id' in session:
+#         if session['id'] == id:
 #             data = {
 #                 "id" : id
 #             }
