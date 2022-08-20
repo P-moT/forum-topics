@@ -12,34 +12,48 @@
     <div>
         <!-- topic panel -->
         <div class="container">
-            <div class="my-5 row ">
+            <form action="/new_post">
+                <button class="btn btn-primary my-3" type="submit">Create a Post</button>
+            </form>
+            <a href="/logout" class="button">Logout</a>
+
+            <div class="my-3 row ">
                 <div class="me-1 col-lg-8 border">
-                    <div>
+                    <div class="my-3">
+                        {% if posts | length > 0%}
+                            {% for topic in topic_name %}
+                            <div>
+                                <h2>Topics: {{topic}}</h2>
+                                <div class="row">
+                                    {% for i in range(1) %}
+                                        <a href="#">title</a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                        <i>There is no post yet...</i>
+                        {% endif %}
+                    </div>
+                    <!-- <div>
                         <h2>Topics: </h2>
                         <div class="row">
-                            <a href="#">{{post.title}}</a>
-                            <a href="#">{{post.title}}</a>
+                            <a href="#">title</a>
+                            <a href="#">title</a>
                         </div>
                     </div>
                     <div>
                         <h2>Topics: </h2>
                         <div class="row">
-                            <a href="#">{{post.title}}</a>
-                            <a href="#">{{post.title}}</a>
+                            <a href="#">title</a>
+                            <a href="#">title</a>
                         </div>
-                    </div>
-                    <div>
-                        <h2>Topics: </h2>
-                        <div class="row">
-                            <a href="#">{{post.title}}</a>
-                            <a href="#">{{post.title}}</a>
-                        </div>
-                    </div>
+                    </div> -->
                 </div>
                 <!-- user panel -->
-                <div class="col-lg-3 border">
-                    <img src="#" alt="user avatar">
-                    <h3>{{user.first_name}}</h3>
+                <div class="col-lg-3 border d-flex align-items-center flex-column">
+                    <img class="my-5" src='{{ url_for("static", filename="img/user-circle.png")}}' width="120" alt="user avatar">
+                    <h3>user name</h3>
                     <form action="#">
                         <button class="btn btn-primary my-5" type="submit">Edit Profile</button>
                     </form>

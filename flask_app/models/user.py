@@ -51,6 +51,22 @@ class User:
             valid = False
         return valid
     
+    # validation - update user profile
+    @staticmethod
+    def validate_user_update(user):
+        is_valid = True
+        if len(user["first_name"]) < 3:
+            flash("First name must be at least 3 characters.")
+            is_valid = False
+        if len(user["last_name"]) < 3:
+            flash("Last name must be at least 3 characters.")
+            is_valid = False
+        if not EMAIL_REGEX.match(user['email']): 
+            flash("Invalid email address!")
+            is_valid = False
+        return is_valid
+
+
     @classmethod
     def add_user(cls, data):
         query = "INSERT INTO users (first_name, last_name, email, password) VALUES (%(first_name)s, %(last_name)s, %(email)s, %(password)s);"
@@ -69,3 +85,20 @@ class User:
         if not result:
             return False
         return cls(result[0])
+    
+    # update user profile
+    @classmethod
+    def get_user_by_id(cls, data):
+        query = "SELECT * FROM users WHERE id=%(id)s;"
+        results = connectToMySQL(db).query_db(query, data)
+        if len(results) < 1:
+            return False
+        row = results[0]
+        user = cls(row)
+        return user
+
+    # update user profile
+    @classmethod
+    def update(cls, data):
+        query = "UPDATE users SET first_name = %(first_name)s, last_name=%(last_name)s, email=%(email)s WHERE id=%(id)s;"
+        return connectToMySQL(db).query_db(query, data)

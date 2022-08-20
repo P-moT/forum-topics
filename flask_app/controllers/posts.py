@@ -1,5 +1,6 @@
 from flask_app import app  
 from flask_app.models import post, user
+from flask_app.models.user import User
 from flask import render_template, request, session, flash, redirect
 
 @app.route('/<topic_name>')
@@ -54,3 +55,4 @@ def add_comment(topic_name, post_id):
     }
     post.Comment.create_comment(data)
     return redirect(f'/{topic_name}/post/{post_id}')
+
