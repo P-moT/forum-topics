@@ -25,6 +25,17 @@ class Post:
         results = connectToMySQL(db).query_db(query, data)
         return cls(results[0])
 
+    @classmethod
+    def get_by_topic(cls, data):
+        query = 'SELECT * FROM posts ORDER BY desc WHERE topic = %(topic)s;'
+        results = connectToMySQL(db).query_db(query, data)
+        post_list = []
+        for each_post in results:
+            post_obj = cls(each_post)
+            post_list.append(post_obj)
+        return post_list
+
+
 
 class Comment:
     def __init__(self, data):

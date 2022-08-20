@@ -2,12 +2,12 @@ from flask_app import app
 from flask_app.models import post, user
 from flask import render_template, request, session, flash, redirect
 
-# @app.route('/<topic_name>')
-# def show_topic(topic_name):
-#     data = {
-#         'topic': topic_name
-#     }
-#     return render_template('topic.html', posts=post.Post.get_by_topic(data))
+@app.route('/<topic_name>')
+def show_topic(topic_name):
+    data = {
+        'topic': topic_name
+    }
+    return render_template('topic.html', posts=post.Post.get_by_topic(data), topic_name = topic_name)
 
 @app.route('/new_post')
 def new_post():
