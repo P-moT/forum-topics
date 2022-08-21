@@ -9,55 +9,71 @@
     <title>{{this_post.title}}</title>
 </head>
 <body>
-    <div class="header">
-        <p>placeholder greeting</p>
-        <a href="/logout" class="button">Logout</a>
-    </div>
+    <!-- nav bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+        <a class="navbar-brand" href="/dashboard">Forum</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/dashboard">Home</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Contact Us</a>
+                </li>
+            </ul>
+        </div>
+        <div class="d-flex justify-content">
+            <p class="text-light my-auto mx-5">Hi, {{session_user.first_name}}</p>
+            <a href="/logout" class="btn btn-outline-light">Logout</a>
+        </div>
+    </nav>
+
     <div class="container">
-
-        <div class="col-3">
-            <a href="#" class="btn btn-primary">Go Back to Title Page</a>
-            <a href="#" class="btn btn-primary">Edit User Profile</a>
+        <div class="col-3 mt-3">
+            <a href="/sports" class="btn btn-primary">{{this_post.topic | capitalize}} Hub</a>
         </div>
 
-    <div class="body border my-5 p-3">
-        <!-- post title -->
-        <div class="title">
-            <div class="row align-items-center">
-                <h1 class="col-8 px-2">{{this_post.title}}</h1>
-                <h4 class="col-4 px-2">Created by: {{post_author.first_name}}</h4>
+        <div class="body border my-5 p-3">
+            <!-- post title -->
+            <div class="title">
+                <div class="row">
+                    <h2 class="px-2">{{this_post.title}}</h1>
+                </div>
+                <div class="row my-2 justify-content">
+                    <p class="col-4"><em>Created by: {{this_post.user.first_name}}</em></p>
+                    <p class="col-4"><em>Created at :{{this_post.created_at}}</em></p>
+                    <p class="col-4 text-end"><em>Topic: {{this_post.topic | capitalize}}</em></p>
+                </div>
             </div>
-            <div class="row my-2">
-                <h4 class="col-8">Created at :{{this_post.created_at}}</h4>
-                <h4 class="col-4">Topic: {{this_post.topic}}</h4>
+            <!-- post content -->
+            <div class="post">
+                <p>{{this_post.post}}</p>
             </div>
-            <div class="titlesidebar">
-                <a href="/sports" class="button">Sports Hub</a>
-            </div>
-        </div>
-        <!-- post content -->
-        <div class="post">
-            <p>{{this_post.post}}</p>
-        </div>
-        <!-- comment -->
-        <div class="comment-section">
-            <div class="d-flex justify-content mt-5">
-                <h1>Comments:</h1>
-                <p class="my-auto mx-5">{{count}} comment(s)</p>
-            </div>
-            <div class="comment-box m-3">
-                <form action="/add_comment/{{this_post.topic}}/{{this_post.id}}" method="post" id="form">
-                    <textarea class="row" name="comment" form="form" cols="100" rows="10" ></textarea>
-                    <input class="btn btn-primary my-3" type="submit" value="Post Comment">
-                </form>
-            </div>
-            <div class="comments m-5">
-                {% for each_comment in comments %}
-                <p>{{each_comment.comment}}</p>
-                <p>{{each_comment.author.first_name}}</p>
-                {% endfor %}
+            <!-- comment -->
+            <div class="comment-section">
+                <div class="d-flex justify-content mt-5">
+                    <h1>Comments:</h1>
+                    <p class="my-auto mx-5">{{count}} comment(s)</p>
+                </div>
+                <div class="comment-box m-3">
+                    <form action="/add_comment/{{this_post.topic}}/{{this_post.id}}" method="post" id="form">
+                        <textarea class="row" name="comment" form="form" cols="100" rows="10" ></textarea>
+                        <input class="btn btn-primary my-3" type="submit" value="Post Comment">
+                    </form>
+                </div>
+                <div class="comments m-5">
+                    {% for each_comment in comments %}
+                    <p>{{each_comment.comment}}</p>
+                    <p>{{each_comment.author.first_name}}</p>
+                    {% endfor %}
+                </div>
             </div>
         </div>
-    </div>
 </body>
 </html>

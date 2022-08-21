@@ -111,17 +111,18 @@ def process_post():
 #     return render_template('post.html', this_post = this_post, post_author = post_author, comments = comments, count = count)
 
 # updated version
-@app.route('/sports/post/<int:id>')
-def show_sports_post(id):
+@app.route('/<topic>/post/<int:id>')
+def show_post(id, topic):
     user_data = {
         'id': session['id']
     }
     session_user = User.get_user_by_id(user_data)
     post_data = {
         'id': id,
+        'topic':topic
     }
     this_post = post.Post.get_one_post(post_data)
-    return render_template("sports_post.html", this_post=this_post, session_user=session_user)
+    return render_template("post.html", this_post=this_post, session_user=session_user)
 
 
 @app.route('/add_comment/<topic_name>/<int:post_id>', methods=['POST'])

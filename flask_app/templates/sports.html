@@ -61,11 +61,8 @@
                             <p class="col">Created on {{post.created_at}}</p>
                             <p class="col">Created by {{post.user.first_name}}</p>
                             <p>{{post.post}}</p>
-                            <a class="my-4" href="/sports/post/{{post.id}}">Read More...</a>
+                            <a class="my-4" href="/{{post.topic}}/post/{{post.id}}">Read More...</a>
                         </div>
-                    {% else %}
-                        <i class="mx-3" >There is no post yet...</i>
-                    </div>
                     {% endif %}
                 {% endfor %}
                 </div>

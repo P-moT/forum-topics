@@ -53,11 +53,9 @@
                                 {% for post in posts%}
                                     {% if post.topic == "sports" %}
                                     <div class="d-flex justify-content">
-                                        <a class="col-8 mx-3" style="color:black; text-decoration:none;" href="/sports/post/{{post.id}}">{{post.title}}</a>
+                                        <a class="col-8 mx-3" style="color:black; text-decoration:none;" href="/{{post.topic}}/post/{{post.id}}">{{post.title}}</a>
                                         <p class="col-2">Author: {{post.user.first_name}}</p>
                                     </div>
-                                    {% else %}
-                                        <i class="mx-3" >There is no post yet...</i>
                                     {% endif %}
                                 {% endfor %}
                             <a class="my-4" href="/sports">Read More...</a>
@@ -68,11 +66,9 @@
                                 {% for post in posts%}
                                     {% if post.topic == "science" %}
                                     <div class="d-flex justify-content">
-                                        <a class="col-8 mx-3" style="color:black; text-decoration:none;" href="/science/post/{{post.id}}">{{post.title}}</a>
+                                        <a class="col-8 mx-3" style="color:black; text-decoration:none;" href="/{{post.topic}}/post/{{post.id}}">{{post.title}}</a>
                                         <p class="col-2">Author: {{post.user.first_name}}</p>
                                     </div>
-                                    {% else %}
-                                        <i class="mx-3" >There is no post yet...</i>
                                     {% endif %}
                                 {% endfor %}
                             <a class="my-4" href="/science">Read More...</a>
@@ -83,11 +79,9 @@
                                 {% for post in posts%}
                                     {% if post.topic == "technology" %}
                                     <div class="d-flex justify-content">
-                                        <a class="col-8 mx-3" style="color:black; text-decoration:none;" href="/technology/post/{{post.id}}">{{post.title}}</a>
+                                        <a class="col-8 mx-3" style="color:black; text-decoration:none;" href="/{{post.topic}}/post/{{post.id}}">{{post.title}}</a>
                                         <p class="col-2">Author: {{post.user.first_name}}</p>
                                     </div>
-                                    {% else %}
-                                        <i class="mx-3" >There is no post yet...</i>
                                     {% endif %}
                                 {% endfor %}
                             <a class="my-4" href="/technology">Read More...</a>
