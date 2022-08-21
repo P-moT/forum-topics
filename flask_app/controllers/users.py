@@ -1,6 +1,7 @@
 
 from flask_app import app  
 from flask_app.models import user
+from flask_app.models.user import User
 from flask import render_template, request, session, flash, redirect
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
@@ -9,9 +10,9 @@ bcrypt = Bcrypt(app)
 def login():
     return render_template('login.html')
 
-@app.route('/dashboard')
-def dashboard():
-    return render_template('dashboard.html')
+# @app.route('/dashboard')
+# def dashboard():
+#     return render_template('dashboard.html')
 
 @app.route('/user/process', methods=['POST'])
 def register_user():
@@ -61,6 +62,26 @@ def login_check():
 #     else:
 #         flash('You must be logged in to view that page', 'error')
 #         return redirect('/')
+
+
+# user edit - display route
+@app.route("/user/<int:id>")
+def edit_user(id):
+    user_data = {
+        'id': session['id']
+    }
+    user = User.get_user_by_id(user_data)
+    return render_template("edit_profile.html", user=user)
+
+
+# user edit - process route
+@app.route("/user/<int:id>/update", methods=["POST"])
+def update_user(id):
+    if not user.User.validate_user_update(request.form):
+        return redirect(f"/user/{id}")
+    user.User.update(request.form)
+    return redirect("/dashboard")
+
 
 @app.route('/logout')
 def logout():
