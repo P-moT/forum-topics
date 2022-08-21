@@ -78,7 +78,7 @@ def edit_user(id):
 @app.route("/user/<int:id>/update", methods=["POST"])
 def update_user(id):
     if not user.User.validate_user_update(request.form):
-        return redirect(f"/user/{id}/account")
+        return redirect(f"/user/{id}")
     user.User.update(request.form)
     return redirect("/dashboard")
 
