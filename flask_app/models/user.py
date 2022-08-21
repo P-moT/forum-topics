@@ -91,11 +91,13 @@ class User:
     def get_user_by_id(cls, data):
         query = "SELECT * FROM users WHERE id=%(id)s;"
         results = connectToMySQL(db).query_db(query, data)
+        #Check to see if there were any results, if not, the email does not exist in the db
         if len(results) < 1:
             return False
         row = results[0]
         user = cls(row)
         return user
+
 
     # update user profile
     @classmethod

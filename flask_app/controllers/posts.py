@@ -3,6 +3,17 @@ from flask_app.models import post, user
 from flask_app.models.user import User
 from flask import render_template, request, session, flash, redirect
 
+
+@app.route("/dashboard")
+def user_dashboard():
+    user_data = {
+        'id': session['id']
+    }
+    user = User.get_user_by_id(user_data)
+    posts = post.Post.get_all_posts()
+    return render_template("dashboard.html", user=user, posts=posts)
+
+
 @app.route('/<topic_name>')
 def show_topic(topic_name):
     data = {
@@ -10,24 +21,47 @@ def show_topic(topic_name):
     }
     return render_template('topic.html', posts=post.Post.get_by_topic(data), topic_name = topic_name)
 
+# @app.route('/new_post')
+# def new_post():
+#     return render_template('create_post.html')
+
+# updated version
 @app.route('/new_post')
 def new_post():
-    return render_template('create_post.html')
+    user_data = {
+        "id": session["id"]
+    }
+    user = User.get_user_by_id(user_data)
+    return render_template('create_post.html', user=user)
 
+
+
+# @app.route('/process_post', methods=['POST'])
+# def process_post():
+#     data = {
+#         'title': request.form['title'],
+#         'post': request.form['post'],
+#         'topic': request.form['topic'],
+#         'users_id': session['id']
+#     }
+#     post_id = post.Post.add_post(data)
+#     data2 = {
+#         'id': int(post_id)
+#     }
+#     this_post = post.Post.get_post_by_id(data2)
+#     return redirect(f'/{this_post.topic}/post/{this_post.id}')
+
+# updated version
 @app.route('/process_post', methods=['POST'])
 def process_post():
-    data = {
-        'title': request.form['title'],
-        'post': request.form['post'],
-        'topic': request.form['topic'],
-        'users_id': session['id']
-    }
-    post_id = post.Post.add_post(data)
-    data2 = {
-        'id': int(post_id)
-    }
-    this_post = post.Post.get_post_by_id(data2)
-    return redirect(f'/{this_post.topic}/post/{this_post.id}')
+    # form validation
+    if not post.Post.validate_post_form(request.form):
+        return redirect("/book/new")
+    post.Post.add_post(request.form)
+    return redirect("/dashboard")
+
+
+
 
 @app.route('/<topic_name>/post/<int:id>')
 def show_post(topic_name, id):

@@ -12,12 +12,21 @@ class Post:
         self.users_id = data['users_id']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
-    
+        self.user = None
+        self.users_who_liked = []
+        self.user_ids_who_liked = []
 
+    # @classmethod
+    # def add_post(cls, data):
+    #     query = 'INSERT INTO posts (title, post, topic, users_id) VALUES (%(title)s, %(post)s, %(topic)s, %(users_id)s);'
+    #     return connectToMySQL(db).query_db(query, data)
+
+    # updated version
     @classmethod
     def add_post(cls, data):
-        query = 'INSERT INTO posts (title, post, topic, users_id) VALUES (%(title)s, %(post)s, %(topic)s, %(users_id)s);'
+        query = "INSERT INTO posts(title, post, topic, users_id) VALUES(%(title)s, %(post)s, %(topic)s, %(users_id)s);"
         return connectToMySQL(db).query_db(query, data)
+
 
     @classmethod
     def get_post_by_id(cls, data):
@@ -38,8 +47,8 @@ class Post:
     # get all posts (one to many) - Not sure if this works
     @classmethod
     def get_all_posts(cls):
-        query = "SELECT * FROM posts JOIN users ON posts.user_id=users.id;"
-        results = connectToMySQL(cls.db).query_db(query)
+        query = "SELECT * FROM posts JOIN users ON posts.users_id=users.id;"
+        results = connectToMySQL(db).query_db(query)
         posts = []
         for row in results:
             post = cls(row)
@@ -57,6 +66,18 @@ class Post:
             post.user = user
             posts.append(post)
         return posts
+
+    @staticmethod
+    def validate_post_form(post):
+        is_valid = True
+        if len(post["title"]) < 1:
+            flash("Title must be at least 1 character.")
+            is_valid = False
+        if len(post["post"]) < 10:
+            flash("Content must be at least 10 characters.")
+            is_valid = False
+        return is_valid
+
 
 
 class Comment:
