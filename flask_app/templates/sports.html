@@ -75,7 +75,7 @@
                 <img class="my-5" src='{{ url_for("static", filename="img/user-circle.png")}}' width="120"
                     alt="user avatar">
                 <h3>user name</h3>
-                <form action="#">
+                <form action="/user/{{user.id}}">
                     <button class="btn btn-primary my-5" type="submit">Edit Profile</button>
                 </form>
             </div>
