@@ -16,15 +16,9 @@ class Post:
         self.users_who_liked = []
         self.user_ids_who_liked = []
 
-    # @classmethod
-    # def add_post(cls, data):
-    #     query = 'INSERT INTO posts (title, post, topic, users_id) VALUES (%(title)s, %(post)s, %(topic)s, %(users_id)s);'
-    #     return connectToMySQL(db).query_db(query, data)
-
-    # updated version
     @classmethod
     def add_post(cls, data):
-        query = "INSERT INTO posts(title, post, topic, users_id) VALUES(%(title)s, %(post)s, %(topic)s, %(users_id)s);"
+        query = 'INSERT INTO posts (title, post, topic, users_id) VALUES (%(title)s, %(post)s, %(topic)s, %(users_id)s);'
         return connectToMySQL(db).query_db(query, data)
 
 
@@ -44,7 +38,7 @@ class Post:
             post_list.append(post_obj)
         return post_list
 
-    # get all posts (one to many) - Not sure if this works
+    # get all posts (one to many)
     @classmethod
     def get_all_posts(cls):
         query = "SELECT * FROM posts JOIN users ON posts.users_id=users.id;"
@@ -66,6 +60,30 @@ class Post:
             post.user = user
             posts.append(post)
         return posts
+
+    @classmethod
+    def get_all_posts_desc(cls):
+        query = "SELECT * FROM posts JOIN users ON posts.users_id=users.id ORDER BY posts.created_at DESC;"
+        results = connectToMySQL(db).query_db(query)
+        posts = []
+        for row in results:
+            post = cls(row)
+            #create associated user (author) object
+            user_data = {
+                'id': row['users.id'],
+                'first_name': row['first_name'],
+                'last_name': row['last_name'],
+                'email': row['email'],
+                'password': row['password'],
+                'created_at': row['users.created_at'],
+                'updated_at': row['users.updated_at']
+            }
+            user = User(user_data)
+            post.user = user
+            posts.append(post)
+        return posts
+
+
 
     @staticmethod
     def validate_post_form(post):

@@ -5,7 +5,7 @@ from flask import render_template, request, session, flash, redirect
 
 
 @app.route("/dashboard")
-def user_dashboard():
+def dashboard():
     user_data = {
         'id': session['id']
     }
@@ -14,12 +14,30 @@ def user_dashboard():
     return render_template("dashboard.html", user=user, posts=posts)
 
 
-@app.route('/<topic_name>')
-def show_topic(topic_name):
-    data = {
-        'topic': topic_name
-    }
-    return render_template('topic.html', posts=post.Post.get_by_topic(data), topic_name = topic_name)
+# @app.route('/<topic_name>')
+# def show_topic(topic_name):
+#     data = {
+#         'topic': topic_name
+#     }
+#     return render_template('topic.html', posts=post.Post.get_by_topic(data), topic_name = topic_name)
+
+# updated version
+@app.route('/sports')
+def show_sports():
+    posts = post.Post.get_all_posts_desc()
+    return render_template("sports.html", posts=posts)
+
+# updated version
+@app.route('/science')
+def show_science():
+    posts = post.Post.get_all_posts_desc()
+    return render_template("science.html", posts=posts)
+
+# updated version
+@app.route('/technology')
+def show_technolocy():
+    posts = post.Post.get_all_posts_desc()
+    return render_template("technology.html", posts=posts)
 
 # @app.route('/new_post')
 # def new_post():
@@ -56,7 +74,7 @@ def new_post():
 def process_post():
     # form validation
     if not post.Post.validate_post_form(request.form):
-        return redirect("/book/new")
+        return redirect("/new_post")
     post.Post.add_post(request.form)
     return redirect("/dashboard")
 

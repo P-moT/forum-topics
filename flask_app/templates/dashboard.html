@@ -51,46 +51,46 @@
                         <div class="row card border shadow-sm mb-4">
                             <h3 class="card-title py-2 mb-2" style="color:#0d47a1;">Topics: Sports</h3>
                                 {% for post in posts%}
-                                    {% if post.topic == 1 %}                            
+                                    {% if post.topic == 1 %}
                                     <div class="d-flex justify-content">
                                         <a class="col-8 mx-3" style="color:black; text-decoration:none;" href="#">{{post.title}}</a>
                                         <p class="col-2">Author: {{post.user.first_name}}</p>
                                     </div>
+                                    {% else %}
+                                        <i class="mx-3" >There is no post yet...</i>
                                     {% endif %}
                                 {% endfor %}
-                            <a class="my-4" href="#">Read More...</a>
+                            <a class="my-4" href="/sports">Read More...</a>
                         </div>
                         <!-- Science -->
                         <div class="row card border shadow-sm mb-4">
-                            <h3 class="card-title py-2 mb-2" style="color:#0d47a1;">Topics: Seciece</h3>
-                            {% if posts | length > 0%}
-                                {% for topic in topic_name %}
-                                    <div class="row">
-                                        {% for i in range(1) %}
-                                        <a class="mx-3" href="#">title</a>
-                                        {% endfor %}
+                            <h3 class="card-title py-2 mb-2" style="color:#0d47a1;">Topics: Science</h3>
+                                {% for post in posts%}
+                                    {% if post.topic == 2 %}
+                                    <div class="d-flex justify-content">
+                                        <a class="col-8 mx-3" style="color:black; text-decoration:none;" href="#">{{post.title}}</a>
+                                        <p class="col-2">Author: {{post.user.first_name}}</p>
                                     </div>
+                                    {% else %}
+                                        <i class="mx-3" >There is no post yet...</i>
+                                    {% endif %}
                                 {% endfor %}
-                            {% else %}
-                                <i class="mx-3" >There is no post yet...</i>
-                            {% endif %}
-                            <a class="my-4" href="#">Read More...</a>
+                            <a class="my-4" href="/science">Read More...</a>
                         </div>
                         <!-- Technology -->
                         <div class="row card border shadow-sm mb-4">
                             <h3 class="card-title py-2 mb-2" style="color:#0d47a1;">Topics: Technology</h3>
-                            {% if posts | length > 0%}
-                                {% for topic in topic_name %}
-                                    <div class="row">
-                                        {% for i in range(1) %}
-                                        <a class="mx-3" href="#">title</a>
-                                        {% endfor %}
+                                {% for post in posts%}
+                                    {% if post.topic == 2 %}
+                                    <div class="d-flex justify-content">
+                                        <a class="col-8 mx-3" style="color:black; text-decoration:none;" href="#">{{post.title}}</a>
+                                        <p class="col-2">Author: {{post.user.first_name}}</p>
                                     </div>
+                                    {% else %}
+                                        <i class="mx-3" >There is no post yet...</i>
+                                    {% endif %}
                                 {% endfor %}
-                            {% else %}
-                                <i class="mx-3" >There is no post yet...</i>
-                            {% endif %}
-                            <a class="my-4" href="#">Read More...</a>
+                            <a class="my-4" href="/technology">Read More...</a>
                         </div>
                     </div>
                 </div>
