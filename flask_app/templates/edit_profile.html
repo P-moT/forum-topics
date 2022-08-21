@@ -12,14 +12,38 @@
 </head>
 
 <body>
+    <!-- nav bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+        <a class="navbar-brand" href="/dashboard">Forum</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/dashboard">Home</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Contact Us</a>
+                </li>
+            </ul>
+        </div>
+        <div class="d-flex justify-content">
+            <p class="text-light my-auto mx-5">Hi, user name</p>
+            <a href="/logout" class="btn btn-outline-light">Logout</a>
+        </div>
+    </nav>
+
     <div class="container">
         <div>
             <a class="btn btn-primary my-3" href="/dashboard">Dashboard</a>
-            <a href="/logout" class="button">Logout</a>
         </div>
 
         <div class="row my-2">
-            <div class="col card shadow-lg mx-2">
+            <div class="col card shadow-sm mx-2">
                 <div class="card-body my-3">
                     <h2>Update User</h2>
                     {% with messages = get_flashed_messages() %}
