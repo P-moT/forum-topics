@@ -30,7 +30,7 @@
             </ul>
         </div>
         <div class="d-flex justify-content">
-            <p class="text-light my-auto mx-5">Hi, user name</p>
+            <p class="text-light my-auto mx-5">Hi, {{user.first_name}}</p>
             <a href="/logout" class="btn btn-outline-light">Logout</a>
         </div>
     </nav>
@@ -53,6 +53,7 @@
                 </div>
                 <div class="body">
                     <form action="/process_post" id="form" method="post">
+                        <input name="users_id" type="hidden" value="{{user.id}}">
                         <div class="mb-3">
                             <label class="form-label" for="title">Title:</label>
                             <input class="form-control" type="text" name="title">
@@ -60,9 +61,9 @@
                         <div class="mb-3">
                             <label class="form-label" for="topic">Topic:</label>
                             <select class="form-select" name="topic" form="form">
-                                <option value="1">Sports</option>
-                                <option value="2">Science</option>
-                                <option value="3">Technology</option>
+                                <option value="sports">Sports</option>
+                                <option value="science">Science</option>
+                                <option value="technology">Technology</option>
                             </select>
                         </div>
                         <div class="mb-3">

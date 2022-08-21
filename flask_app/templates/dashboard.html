@@ -33,7 +33,7 @@
                 </ul>
             </div>
             <div class="d-flex justify-content">
-                <p class="text-light my-auto mx-5">Hi, user name</p>
+                <p class="text-light my-auto mx-5">Hi, {{user.first_name}}</p>
                 <a href="/logout" class="btn btn-outline-light">Logout</a>
             </div>
         </nav>
@@ -51,9 +51,9 @@
                         <div class="row card border shadow-sm mb-4">
                             <h3 class="card-title py-2 mb-2" style="color:#0d47a1;">Topics: Sports</h3>
                                 {% for post in posts%}
-                                    {% if post.topic == 1 %}
+                                    {% if post.topic == "sports" %}
                                     <div class="d-flex justify-content">
-                                        <a class="col-8 mx-3" style="color:black; text-decoration:none;" href="#">{{post.title}}</a>
+                                        <a class="col-8 mx-3" style="color:black; text-decoration:none;" href="/sports/post/{{post.id}}">{{post.title}}</a>
                                         <p class="col-2">Author: {{post.user.first_name}}</p>
                                     </div>
                                     {% else %}
@@ -66,9 +66,9 @@
                         <div class="row card border shadow-sm mb-4">
                             <h3 class="card-title py-2 mb-2" style="color:#0d47a1;">Topics: Science</h3>
                                 {% for post in posts%}
-                                    {% if post.topic == 2 %}
+                                    {% if post.topic == "science" %}
                                     <div class="d-flex justify-content">
-                                        <a class="col-8 mx-3" style="color:black; text-decoration:none;" href="#">{{post.title}}</a>
+                                        <a class="col-8 mx-3" style="color:black; text-decoration:none;" href="/science/post/{{post.id}}">{{post.title}}</a>
                                         <p class="col-2">Author: {{post.user.first_name}}</p>
                                     </div>
                                     {% else %}
@@ -81,9 +81,9 @@
                         <div class="row card border shadow-sm mb-4">
                             <h3 class="card-title py-2 mb-2" style="color:#0d47a1;">Topics: Technology</h3>
                                 {% for post in posts%}
-                                    {% if post.topic == 2 %}
+                                    {% if post.topic == "technology" %}
                                     <div class="d-flex justify-content">
-                                        <a class="col-8 mx-3" style="color:black; text-decoration:none;" href="#">{{post.title}}</a>
+                                        <a class="col-8 mx-3" style="color:black; text-decoration:none;" href="/technology/post/{{post.id}}">{{post.title}}</a>
                                         <p class="col-2">Author: {{post.user.first_name}}</p>
                                     </div>
                                     {% else %}

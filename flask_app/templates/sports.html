@@ -31,7 +31,7 @@
             </ul>
         </div>
         <div class="d-flex justify-content">
-            <p class="text-light my-auto mx-5">Hi, user name</p>
+            <p class="text-light my-auto mx-5">Hi, {{session_user.first_name}}</p>
             <a href="/logout" class="btn btn-outline-light">Logout</a>
         </div>
     </nav>
@@ -51,41 +51,38 @@
 
         <!-- content -->
         <div class="my-3 row">
-            
             <div class="me-1 col-lg-8">
                 <div class="row mb-4">
                 {% for post in posts%}
-                    {% if post.topic == 1 %}
-                    <div class="card border border-primary shadow-sm">
-                        <h2>{{post.title}} </h2>
+                    {% if post.topic == "sports" %}
+                    <div class="border border-primary border-2">
+                        <h2 class="mt-3">{{post.title}} </h2>
                         <div class="row">
                             <p class="col">Created on {{post.created_at}}</p>
                             <p class="col">Created by {{post.user.first_name}}</p>
                             <p>{{post.post}}</p>
-                            <a class="my-4" href="/post">Read More...</a>
+                            <a class="my-4" href="/sports/post/{{post.id}}">Read More...</a>
                         </div>
                     {% else %}
                         <i class="mx-3" >There is no post yet...</i>
+                    </div>
                     {% endif %}
                 {% endfor %}
                 </div>
             </div>
-
-            <!-- user panel -->
-            <div class="col-lg-3">
-                <div class="card border border-primary shadow d-flex align-items-center flex-column">
-                    <img class="my-5" src='{{ url_for("static", filename="img/user-circle.png")}}' width="120"
-                        alt="user avatar">
-                    <h3>user name</h3>
-                    <form action="#">
-                        <button class="btn btn-primary my-5" type="submit">Edit Profile</button>
-                    </form>
-                </div>
-            </div>
         </div>
 
-
+        <!-- user panel -->
+        <div class="col-lg-3">
+            <div class="card border shadow d-flex align-items-center flex-column">
+                <img class="my-5" src='{{ url_for("static", filename="img/user-circle.png")}}' width="120"
+                    alt="user avatar">
+                <h3>user name</h3>
+                <form action="#">
+                    <button class="btn btn-primary my-5" type="submit">Edit Profile</button>
+                </form>
+            </div>
+        </div>
     </div>
-
 </body>
 </html>

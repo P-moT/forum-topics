@@ -84,6 +84,28 @@ class Post:
         return posts
 
 
+    @classmethod
+    def get_one_post(cls, data):
+        query = "SELECT * FROM posts JOIN users ON posts.users_id=users.id WHERE posts.id=%(id)s;"
+        results = connectToMySQL(db).query_db(query, data)
+        if len(results) < 1:
+            return False
+        row = results[0]
+        post = cls(row)
+        user_data = {
+            'id': row['users.id'],
+            'first_name': row['first_name'],
+            'last_name': row['last_name'],
+            'email': row['email'],
+            'password': row['password'],
+            'created_at': row['users.created_at'],
+            'updated_at': row['users.updated_at']
+        }
+        user = User(user_data)
+        post.user = user
+        return post
+
+
 
     @staticmethod
     def validate_post_form(post):

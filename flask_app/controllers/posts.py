@@ -24,20 +24,32 @@ def dashboard():
 # updated version
 @app.route('/sports')
 def show_sports():
+    user_data = {
+        'id': session['id']
+    }
+    session_user = User.get_user_by_id(user_data)
     posts = post.Post.get_all_posts_desc()
-    return render_template("sports.html", posts=posts)
+    return render_template("sports.html", posts=posts, session_user=session_user)
 
 # updated version
 @app.route('/science')
 def show_science():
+    user_data = {
+        'id': session['id']
+    }
+    session_user = User.get_user_by_id(user_data)
     posts = post.Post.get_all_posts_desc()
-    return render_template("science.html", posts=posts)
+    return render_template("science.html", posts=posts, session_user=session_user)
 
 # updated version
 @app.route('/technology')
 def show_technolocy():
+    user_data = {
+        'id': session['id']
+    }
+    session_user = User.get_user_by_id(user_data)
     posts = post.Post.get_all_posts_desc()
-    return render_template("technology.html", posts=posts)
+    return render_template("technology.html", posts=posts, session_user=session_user)
 
 # @app.route('/new_post')
 # def new_post():
@@ -81,22 +93,36 @@ def process_post():
 
 
 
-@app.route('/<topic_name>/post/<int:id>')
-def show_post(topic_name, id):
-    data = {
-        'id': id
+# @app.route('/<topic_name>/post/<int:id>')
+# def show_post(topic_name, id):
+#     data = {
+#         'id': id
+#     }
+#     this_post = post.Post.get_post_by_id(data)
+#     data2 = {
+#         'id': this_post.users_id
+#     }
+#     post_author = user.User.get_by_id(data2)
+#     data3 ={
+#         'posts_id': id
+#     }
+#     comments = post.Comment.get_comments(data3)
+#     count = len(comments)
+#     return render_template('post.html', this_post = this_post, post_author = post_author, comments = comments, count = count)
+
+# updated version
+@app.route('/sports/post/<int:id>')
+def show_sports_post(id):
+    user_data = {
+        'id': session['id']
     }
-    this_post = post.Post.get_post_by_id(data)
-    data2 = {
-        'id': this_post.users_id
+    session_user = User.get_user_by_id(user_data)
+    post_data = {
+        'id': id,
     }
-    post_author = user.User.get_by_id(data2)
-    data3 ={
-        'posts_id': id
-    }
-    comments = post.Comment.get_comments(data3)
-    count = len(comments)
-    return render_template('post.html', this_post = this_post, post_author = post_author, comments = comments, count = count)
+    this_post = post.Post.get_one_post(post_data)
+    return render_template("sports_post.html", this_post=this_post, session_user=session_user)
+
 
 @app.route('/add_comment/<topic_name>/<int:post_id>', methods=['POST'])
 def add_comment(topic_name, post_id):
