@@ -42,8 +42,11 @@
         <div class="body border my-5 p-3">
             <!-- post title -->
             <div class="title">
-                <div class="row">
-                    <h2 class="px-2">{{this_post.title}}</h1>
+                <div class="row my-2 justify-content">
+                    <h2 class="px-2 col-10">{{this_post.title}}</h1>
+                    {% if this_post.user.id == session['id'] %} 
+                        <a href="/delete_post/{{this_post.topic}}/{{this_post.id}}" class="btn btn-primary col-2">Delete Post</a>
+                    {% endif %}
                 </div>
                 <div class="row my-2 justify-content">
                     <p class="col-4"><em>Created by: {{this_post.user.first_name}}</em></p>
@@ -62,6 +65,13 @@
                     <p class="my-auto mx-5">{{count}} comment(s)</p>
                 </div>
                 <div class="comment-box m-3">
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <p style="color:red;">{{message}}</p>
+                            {% endfor %}
+                            {% endif %}
+                    {% endwith %}
                     <form action="/add_comment/{{this_post.topic}}/{{this_post.id}}" method="post" id="form">
                         <textarea class="row" name="comment" form="form" cols="100" rows="10" ></textarea>
                         <input class="btn btn-primary my-3" type="submit" value="Post Comment">
@@ -72,6 +82,9 @@
                     <p>{{each_comment.comment}}</p>
                     <p>{{each_comment.author.first_name}}</p>
                     <p>{{each_comment.created_at}}</p>
+                        {% if each_comment.author.id == session['id'] %} 
+                            <a href="/delete_comment/{{this_post.topic}}/{{this_post.id}}/{{each_comment.id}}" class="btn btn-primary">Delete Comment</a>
+                        {% endif %}
                     {% endfor %}
                 </div>
             </div>

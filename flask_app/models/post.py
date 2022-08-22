@@ -62,6 +62,11 @@ class Post:
         return posts
 
     @classmethod
+    def delete_post(cls, data):
+        query = 'DELETE FROM posts WHERE id = %(id)s'
+        return connectToMySQL(db).query_db(query, data)
+
+    @classmethod
     def get_all_posts_desc(cls):
         query = "SELECT * FROM posts JOIN users ON posts.users_id=users.id ORDER BY posts.created_at DESC;"
         results = connectToMySQL(db).query_db(query)
@@ -155,3 +160,19 @@ class Comment:
     def create_comment(cls, data):
         query = 'INSERT INTO comments (comment, users_id, posts_id) VALUES (%(comment)s, %(users_id)s, %(posts_id)s);'
         return connectToMySQL(db).query_db(query, data)
+
+    @classmethod
+    def delete_comment(cls, data):
+        query = 'DELETE FROM comments WHERE id = %(id)s;'
+        return connectToMySQL(db).query_db(query, data)
+
+    @staticmethod
+    def validate_comment(comment):
+        valid = True
+        if len(comment) == 0:
+            flash('Comment cannot be empty.')
+            valid = False
+        if len(comment) > 128:
+            flash('Comment must be less than 128 characters.')
+            valid = False
+        return valid

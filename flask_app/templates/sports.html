@@ -53,18 +53,19 @@
         <div class="my-3 row">
             <div class="me-1 col-lg-8">
                 <div class="row mb-4">
-                {% for post in posts%}
-                    {% if post.topic == "sports" %}
                     <div class="border border-primary border-2">
-                        <h2 class="mt-3">{{post.title}} </h2>
-                        <div class="row">
-                            <p class="col">Created on {{post.created_at}}</p>
-                            <p class="col">Created by {{post.user.first_name}}</p>
-                            <p>{{post.post}}</p>
-                            <a class="my-4" href="/{{post.topic}}/post/{{post.id}}">Read More...</a>
-                        </div>
-                    {% endif %}
-                {% endfor %}
+                        {% for post in posts%}
+                            {% if post.topic == "sports" %}
+                                <h2 class="mt-3">{{post.title}} </h2>
+                                    <div class="row">
+                                        <p class="col">Created on {{post.created_at}}</p>
+                                        <p class="col">Created by {{post.user.first_name}}</p>
+                                        <p>{{post.post}}</p>
+                                        <a class="my-4" href="/{{post.topic}}/post/{{post.id}}">Read More...</a>
+                                    </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>
