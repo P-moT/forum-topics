@@ -42,8 +42,11 @@
         <div class="body border my-5 p-3">
             <!-- post title -->
             <div class="title">
-                <div class="row">
-                    <h2 class="px-2">{{this_post.title}}</h1>
+                <div class="row my-2 justify-content">
+                    <h2 class="px-2 col-10">{{this_post.title}}</h1>
+                    {% if this_post.user.id == session['id'] %} 
+                        <a href="/delete_post/{{this_post.topic}}/{{this_post.id}}" class="btn btn-primary col-2">Delete Post</a>
+                    {% endif %}
                 </div>
                 <div class="row my-2 justify-content">
                     <p class="col-4"><em>Created by: {{this_post.user.first_name}}</em></p>

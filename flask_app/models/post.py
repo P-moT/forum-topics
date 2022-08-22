@@ -62,6 +62,11 @@ class Post:
         return posts
 
     @classmethod
+    def delete_post(cls, data):
+        query = 'DELETE FROM posts WHERE id = %(id)s'
+        return connectToMySQL(db).query_db(query, data)
+
+    @classmethod
     def get_all_posts_desc(cls):
         query = "SELECT * FROM posts JOIN users ON posts.users_id=users.id ORDER BY posts.created_at DESC;"
         results = connectToMySQL(db).query_db(query)
