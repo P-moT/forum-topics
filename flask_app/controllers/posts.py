@@ -116,6 +116,8 @@ def show_post(id, topic):
 
 @app.route('/add_comment/<topic_name>/<int:post_id>', methods=['POST'])
 def add_comment(topic_name, post_id):
+    if not post.Comment.validate_comment(request.form['comment']):
+        return redirect(f'/{topic_name}/post/{post_id}')
     data = {
         'posts_id': post_id,
         'users_id': session['id'],
@@ -124,3 +126,10 @@ def add_comment(topic_name, post_id):
     post.Comment.create_comment(data)
     return redirect(f'/{topic_name}/post/{post_id}')
 
+@app.route('/delete_comment/<topic_name>/<int:post_id>/<int:id>')
+def delete_comment(topic_name, post_id, id):
+    comment_data = {
+        'id': id
+    }
+    post.Comment.delete_comment(comment_data)
+    return redirect(f'/{topic_name}/post/{post_id}')

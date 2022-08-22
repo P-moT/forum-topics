@@ -160,3 +160,19 @@ class Comment:
     def create_comment(cls, data):
         query = 'INSERT INTO comments (comment, users_id, posts_id) VALUES (%(comment)s, %(users_id)s, %(posts_id)s);'
         return connectToMySQL(db).query_db(query, data)
+
+    @classmethod
+    def delete_comment(cls, data):
+        query = 'DELETE FROM comments WHERE id = %(id)s;'
+        return connectToMySQL(db).query_db(query, data)
+
+    @staticmethod
+    def validate_comment(comment):
+        valid = True
+        if len(comment) == 0:
+            flash('Comment cannot be empty.')
+            valid = False
+        if len(comment) > 128:
+            flash('Comment must be less than 128 characters.')
+            valid = False
+        return valid

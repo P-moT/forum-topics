@@ -65,6 +65,13 @@
                     <p class="my-auto mx-5">{{count}} comment(s)</p>
                 </div>
                 <div class="comment-box m-3">
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <p style="color:red;">{{message}}</p>
+                            {% endfor %}
+                            {% endif %}
+                    {% endwith %}
                     <form action="/add_comment/{{this_post.topic}}/{{this_post.id}}" method="post" id="form">
                         <textarea class="row" name="comment" form="form" cols="100" rows="10" ></textarea>
                         <input class="btn btn-primary my-3" type="submit" value="Post Comment">
@@ -75,6 +82,9 @@
                     <p>{{each_comment.comment}}</p>
                     <p>{{each_comment.author.first_name}}</p>
                     <p>{{each_comment.created_at}}</p>
+                        {% if each_comment.author.id == session['id'] %} 
+                            <a href="/delete_comment/{{this_post.topic}}/{{this_post.id}}/{{each_comment.id}}" class="btn btn-primary">Delete Comment</a>
+                        {% endif %}
                     {% endfor %}
                 </div>
             </div>
