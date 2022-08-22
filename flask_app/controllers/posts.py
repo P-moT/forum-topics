@@ -1,3 +1,5 @@
+from turtle import pos
+from xml.etree.ElementTree import Comment
 from flask_app import app  
 from flask_app.models import post, user
 from flask_app.models.user import User
@@ -122,7 +124,7 @@ def show_post(id, topic):
         'topic':topic
     }
     this_post = post.Post.get_one_post(post_data)
-    return render_template("post.html", this_post=this_post, session_user=session_user)
+    return render_template("post.html", this_post=this_post, session_user=session_user, comments=post.Comment.get_comments(post_data))
 
 
 @app.route('/add_comment/<topic_name>/<int:post_id>', methods=['POST'])

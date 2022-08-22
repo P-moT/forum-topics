@@ -128,17 +128,27 @@ class Comment:
         self.updated_at = data['updated_at']
         self.posts_id = data['posts_id']
         self.users_id = data['users_id']
-        self.author = User(data)
+        self.author = None
 
     @classmethod
     def get_comments(cls, data):
-        query = 'SELECT * FROM comments JOIN users ON comments.users_id = users.id  WHERE posts_id = %(posts_id)s;'
+        query = 'SELECT * FROM comments JOIN users ON comments.users_id = users.id  WHERE posts_id = %(id)s;'
         results = connectToMySQL(db).query_db(query, data)
         print(results)
         comment_list = []
         for each_comment in results:
             comment_obj = cls(each_comment)
             comment_list.append(comment_obj)
+            user_data ={
+                'id': each_comment['users.id'],
+                'first_name': each_comment['first_name'],
+                'last_name': each_comment['last_name'],
+                'email': each_comment['email'],
+                'password': each_comment['password'],
+                'created_at': each_comment['users.created_at'],
+                'updated_at': each_comment['users.updated_at']
+            }
+            comment_obj.author= User(user_data)
         return comment_list
 
     @classmethod

@@ -71,6 +71,7 @@
                     {% for each_comment in comments %}
                     <p>{{each_comment.comment}}</p>
                     <p>{{each_comment.author.first_name}}</p>
+                    <p>{{each_comment.created_at}}</p>
                     {% endfor %}
                 </div>
             </div>
