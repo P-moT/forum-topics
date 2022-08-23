@@ -42,15 +42,16 @@
         <div class="body border my-5 p-3">
             <!-- post title -->
             <div class="title">
-                <div class="row my-2 justify-content">
-                    <h2 class="px-2 col-10">{{this_post.title}}</h1>
+                <div class="row my-1 justify-content">
+                    <h2 class="px-1 col-8">{{this_post.title}}</h1>
                     {% if this_post.user.id == session['id'] %} 
-                        <a href="/delete_post/{{this_post.topic}}/{{this_post.id}}" class="btn btn-primary col-2">Delete Post</a>
+                        <a href="/post/{{this_post.topic}}/{{this_post.id}}/edit" class="btn btn-warning col-1 mx-1">Edit</a>
+                        <a href="/delete_post/{{this_post.topic}}/{{this_post.id}}" class="btn btn-danger col-1">Delete</a>
                     {% endif %}
                 </div>
                 <div class="row my-2 justify-content">
                     <p class="col-4"><em>Created by: {{this_post.user.first_name}}</em></p>
-                    <p class="col-4"><em>Created at :{{this_post.created_at}}</em></p>
+                    <p class="col-4"><em>Created at: {{this_post.created_at}}</em></p>
                     <p class="col-4 text-end"><em>Topic: {{this_post.topic | capitalize}}</em></p>
                 </div>
             </div>
@@ -62,7 +63,7 @@
             <div class="comment-section">
                 <div class="d-flex justify-content mt-5">
                     <h1>Comments:</h1>
-                    <p class="my-auto mx-5">{{count}} comment(s)</p>
+                    <p class="my-auto mx-5">{{comments | length}} comment(s)</p>
                 </div>
                 <div class="comment-box m-3">
                     {% with messages = get_flashed_messages() %}
@@ -80,11 +81,11 @@
                 <div class="comments m-5">
                     {% for each_comment in comments %}
                     <p>{{each_comment.comment}}</p>
-                    <p>{{each_comment.author.first_name}}</p>
-                    <p>{{each_comment.created_at}}</p>
+                    <p class="col"><em><small><strong>{{each_comment.author.first_name}}</strong> on {{each_comment.created_at}}</small></em></p>
                         {% if each_comment.author.id == session['id'] %} 
                             <a href="/delete_comment/{{this_post.topic}}/{{this_post.id}}/{{each_comment.id}}" class="btn btn-primary">Delete Comment</a>
                         {% endif %}
+                        <hr>
                     {% endfor %}
                 </div>
             </div>

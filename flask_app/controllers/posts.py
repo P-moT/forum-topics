@@ -12,7 +12,7 @@ def dashboard():
         'id': session['id']
     }
     user = User.get_user_by_id(user_data)
-    posts = post.Post.get_all_posts()
+    posts = post.Post.get_all_posts_desc()
     return render_template("dashboard.html", user=user, posts=posts)
 
 
@@ -112,6 +112,31 @@ def show_post(id, topic):
     }
     this_post = post.Post.get_one_post(post_data)
     return render_template("post.html", this_post=this_post, session_user=session_user, comments=post.Comment.get_comments(post_data))
+
+
+@app.route("/post/<topic>/<int:id>/edit")
+def show_edit_post(id, topic):
+    user_data = {
+        'id': session['id']
+    }
+    session_user = User.get_user_by_id(user_data)
+    post_data = {
+        'id': id,
+        'topic':topic
+    }
+    this_post = post.Post.get_one_post(post_data)
+    
+    return render_template("edit_post.html", session_user=session_user, this_post=this_post)
+
+
+@app.route("/post/<topic>/<int:id>/update", methods=["POST"])
+def update_post(id, topic):
+    # form validation
+    if not post.Post.validate_post_form(request.form):
+        return redirect(f'/post/{topic}/{id}/edit')
+    post.Post.update_post(request.form)
+    return redirect(f'/{topic}/post/{id}')
+
 
 
 @app.route('/add_comment/<topic_name>/<int:post_id>', methods=['POST'])

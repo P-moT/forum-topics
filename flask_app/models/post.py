@@ -88,7 +88,6 @@ class Post:
             posts.append(post)
         return posts
 
-
     @classmethod
     def get_one_post(cls, data):
         query = "SELECT * FROM posts JOIN users ON posts.users_id=users.id WHERE posts.id=%(id)s;"
@@ -110,7 +109,10 @@ class Post:
         post.user = user
         return post
 
-
+    @classmethod
+    def update_post(cls, data):
+        query ="UPDATE posts SET title=%(title)s, post=%(post)s, topic=%(topic)s WHERE id=%(id)s"
+        return connectToMySQL(db).query_db(query, data)
 
     @staticmethod
     def validate_post_form(post):
@@ -153,7 +155,7 @@ class Comment:
                 'created_at': each_comment['users.created_at'],
                 'updated_at': each_comment['users.updated_at']
             }
-            comment_obj.author= User(user_data)
+            comment_obj.author= User(user_data)            
         return comment_list
 
     @classmethod
