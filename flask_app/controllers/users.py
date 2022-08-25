@@ -71,7 +71,7 @@ def edit_user(id):
         'id': session['id']
     }
     user = User.get_user_by_id(user_data)
-    return render_template("edit_profile.html", user=user)
+    return render_template("edit_profile.html", session_user=user)
 
 
 # user edit - process route
