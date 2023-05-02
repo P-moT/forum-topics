@@ -53,19 +53,19 @@
                             {% endfor %}
                             {% endif %}
                     {% endwith %}
-                    <form action="/user/{{user.id}}/update" method="POST">
-                        <input name="id" type="hidden" value="{{user.id}}">
+                    <form action="/user/{{session_user.id}}/update" method="POST">
+                        <input name="id" type="hidden" value="{{session_user.id}}">
                         <div class="mb-3">
                             <label class="form-label" for="first_name">First Name:</label>
-                            <input class="form-control" type="text" name="first_name" value="{{user.first_name}}">
+                            <input class="form-control" type="text" name="first_name" value="{{session_user.first_name}}">
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="last_name">Last Name:</label>
-                            <input class="form-control" type="text" name="last_name" value="{{user.last_name}}">
+                            <input class="form-control" type="text" name="last_name" value="{{session_user.last_name}}">
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="email">Email Address:</label>
-                            <input class="form-control" type="text" name="email" value="{{user.email}}">
+                            <input class="form-control" type="text" name="email" value="{{session_user.email}}">
                         </div>
                         <button class="btn btn-primary" type="submit">Update</button>
                     </form>

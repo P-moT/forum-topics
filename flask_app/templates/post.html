@@ -79,14 +79,17 @@
                 </div>
                 <div class="comments m-5">
                     {% for each_comment in comments %}
-                    <p>{{each_comment.comment}}</p>
-                    <p>{{each_comment.author.first_name}}</p>
-                    <p>{{each_comment.created_at}}</p>
-                        {% if each_comment.author.id == session['id'] %} 
-                            <a href="/delete_comment/{{this_post.topic}}/{{this_post.id}}/{{each_comment.id}}" class="btn btn-primary">Delete Comment</a>
-                        {% endif %}
+                        <div class="border p-2">
+                            <p>{{each_comment.comment}}</p>
+                            <div class="row">
+                                <p class="col-5"><em>{{each_comment.author.first_name}}</em></p>
+                                <p class="col-4"><em>{{each_comment.created_at}}</em></p>
+                                    {% if each_comment.author.id == session['id'] %} 
+                                        <a href="/delete_comment/{{this_post.topic}}/{{this_post.id}}/{{each_comment.id}}" class="btn btn-primary col-2">Delete Comment</a>
+                                    {% endif %}
+                            </div>
+                        </div>
                     {% endfor %}
-                </div>
             </div>
         </div>
 </body>
